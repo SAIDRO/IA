@@ -24,40 +24,40 @@ public class App {
 
         // --- Ejecución de todos los algoritmos para recolectar datos ---
 
-        // 1. Anchura
+        //Búsqueda primero en anchura
         Arbol arbolBFS = new Arbol(new Nodo(estadoInicial, null, 0, 0));
-        long startTime = System.nanoTime();
+        long startTime = System.currentTimeMillis();
         Arbol.ResultadoBusqueda resultadoBFS = arbolBFS.realizarBusquedaEnAnchura(estadoFinal);
-        long endTime = System.nanoTime();
-        tiempos[0] = String.format("%.6f s", (endTime - startTime) / 1_000_000_000.0);
+        long endTime = System.currentTimeMillis();
+        tiempos[0] = (endTime - startTime) / 1000.0 + " s";
         espacios[0] = resultadoBFS.nodosExpandidos + " nodos";
         nodosFinales[0] = resultadoBFS.nodoFinal;
 
-        // 2. Costo Uniforme
+        //Búsqueda de costo uniforme
         Arbol arbolUCS = new Arbol(new Nodo(estadoInicial, null, 0, 0));
-        startTime = System.nanoTime();
+        startTime = System.currentTimeMillis();
         Arbol.ResultadoBusqueda resultadoUCS = arbolUCS.realizarBusquedaDeCostoUniforme(estadoFinal);
-        endTime = System.nanoTime();
-        tiempos[1] = String.format("%.6f s", (endTime - startTime) / 1_000_000_000.0);
+        endTime = System.currentTimeMillis();
+        tiempos[1] = (endTime - startTime) / 1000.0 + " s";
         espacios[1] = resultadoUCS.nodosExpandidos + " nodos";
         nodosFinales[1] = resultadoUCS.nodoFinal;
 
-        // 3. Profundidad
+        //Búsqueda primero en profundidad
         Arbol arbolDFS = new Arbol(new Nodo(estadoInicial, null, 0, 0));
-        startTime = System.nanoTime();
+        startTime = System.currentTimeMillis();
         Arbol.ResultadoBusqueda resultadoDFS = arbolDFS.realizarBusquedaEnProfundidad(estadoFinal);
-        endTime = System.nanoTime();
-        tiempos[2] = String.format("%.6f s", (endTime - startTime) / 1_000_000_000.0);
+        endTime = System.currentTimeMillis();
+        tiempos[2] = (endTime - startTime) / 1000.0 + " s";
         espacios[2] = resultadoDFS.nodosExpandidos + " nodos";
         nodosFinales[2] = resultadoDFS.nodoFinal;
 
-        // 4. Profundidad Limitada
+        //Búsqueda en profundidad limitada
         Arbol arbolDLS = new Arbol(new Nodo(estadoInicial, null, 0, 0));
-        int limite = 25;
-        startTime = System.nanoTime();
+        int limite = 40;
+        startTime = System.currentTimeMillis();
         Arbol.ResultadoBusqueda resultadoDLS = arbolDLS.realizarBusquedaEnProfundidadLimitada(estadoFinal, limite);
-        endTime = System.nanoTime();
-        tiempos[3] = String.format("%.6f s", (endTime - startTime) / 1_000_000_000.0);
+        endTime = System.currentTimeMillis();
+        tiempos[3] = (endTime - startTime) / 1000.0 + " s";
         espacios[3] = resultadoDLS.nodosExpandidos + " nodos";
         nodosFinales[3] = resultadoDLS.nodoFinal;
         

@@ -24,7 +24,7 @@ public class Arbol {
         this.raiz = raiz;
     }
 
-    // 1. Búsqueda Primero en Anchura
+    //Búsqueda primero en anchura
     public ResultadoBusqueda realizarBusquedaEnAnchura(String objetivo) {
         Queue<Nodo> cola = new LinkedList<>();
         HashSet<String> visitados = new HashSet<>();
@@ -51,7 +51,7 @@ public class Arbol {
         return new ResultadoBusqueda(null, nodosExpandidos);
     }
 
-    // 2. Búsqueda de Costo Uniforme
+    //Búsqueda de costo uniforme
     public ResultadoBusqueda realizarBusquedaDeCostoUniforme(String objetivo) {
         PriorityQueue<Nodo> colaPrioridad = new PriorityQueue<>(Comparator.comparingInt(n -> n.costo));
         HashSet<String> visitados = new HashSet<>();
@@ -80,7 +80,7 @@ public class Arbol {
         return new ResultadoBusqueda(null, nodosExpandidos);
     }
 
-    // 3. Búsqueda Primero en Profundidad
+    //Búsqueda primero en profundidad
     public ResultadoBusqueda realizarBusquedaEnProfundidad(String objetivo) {
         Stack<Nodo> pila = new Stack<>();
         HashSet<String> visitados = new HashSet<>();
@@ -111,7 +111,7 @@ public class Arbol {
         return new ResultadoBusqueda(null, nodosExpandidos);
     }
 
-    // 4. Búsqueda en Profundidad Limitada
+    //Búsqueda en profundidad limitada
     public ResultadoBusqueda realizarBusquedaEnProfundidadLimitada(String objetivo, int limite) {
         Stack<Nodo> pila = new Stack<>();
         HashSet<String> visitados = new HashSet<>();
