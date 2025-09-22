@@ -39,7 +39,6 @@ public class App {
             mostrarMenu(scanner);
         }
     }
-
     
      //Ejecuta un único algoritmo de búsqueda según la opción del usuario.
     private static void ejecutarBusquedaUnica(int opcion, String estadoInicial, String estadoFinal) {
@@ -140,7 +139,6 @@ public class App {
         System.out.println(separador);
     }
 
- 
     //Reconstruye el camino desde el nodo final hasta el nodo raíz
     private static List<Nodo> reconstruirCamino(Nodo nodoFinal) {
         List<Nodo> camino = new ArrayList<>();
@@ -152,7 +150,6 @@ public class App {
         return camino;
     }
 
-    
      //Muestra en consola la solución paso a paso a partir de una lista de nodos.
     private static void mostrarPasos(List<Nodo> camino) {
         if (camino.isEmpty()) {
@@ -168,7 +165,6 @@ public class App {
             imprimirTablero(camino.get(i).estado);
         }
     }
-
 
     //Genera una descripción del movimiento realizado entre dos estados.
     private static String describirMovimiento(String anterior, String actual) {
