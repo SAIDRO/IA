@@ -72,4 +72,29 @@ public class Nodo {
         estadoArray[pos2] = temp;
         return new String(estadoArray);
     }
+
+
+    //Heuristica
+    //Calcular la heurística basada en si las diagonales (0, 4, 8) y (2, 4, 6) están correctas.
+    
+    public int calcularHeuristicaDiagonales(String objetivo) {
+        int diagonalIncorrecta = 0;
+        
+        // Diagonal principal (posiciones 0, 4, 8)
+        if (estado.charAt(0) != objetivo.charAt(0) || 
+            estado.charAt(4) != objetivo.charAt(4) || 
+            estado.charAt(8) != objetivo.charAt(8)) {
+            diagonalIncorrecta++;
+        }
+
+        // Diagonal secundaria (posiciones 2, 4, 6)
+        if (estado.charAt(2) != objetivo.charAt(2) || 
+            estado.charAt(4) != objetivo.charAt(4) || 
+            estado.charAt(6) != objetivo.charAt(6)) {
+            diagonalIncorrecta++;
+        }
+
+        return diagonalIncorrecta;
+    }
 }
+

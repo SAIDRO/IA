@@ -8,126 +8,127 @@ import java.util.Stack;
 
 public class Arbol {
     Nodo raiz;
-
-    // Clase interna para devolver los resultados de la búsqueda
-    public static class ResultadoBusqueda {
-        public final Nodo nodoFinal;
-        public final int nodosExpandidos;
-
-        public ResultadoBusqueda(Nodo nodoFinal, int nodosExpandidos) {
-            this.nodoFinal = nodoFinal;
-            this.nodosExpandidos = nodosExpandidos;
-        }
-    }
+    private int nodosExpandidos; 
 
     public Arbol(Nodo raiz) {
         this.raiz = raiz;
     }
 
-    //Búsqueda primero en anchura
-    public ResultadoBusqueda realizarBusquedaEnAnchura(String objetivo) {
+    // Método para obtener los nodos expandidos después de una búsqueda
+    public int getNodosExpandidos() {
+        return this.nodosExpandidos;
+    }
+
+    //1. Búsqueda primero en anchura
+    public Nodo realizarBusquedaEnAnchura(String objetivo) {
+        this.nodosExpandidos = 0;
         Queue<Nodo> cola = new LinkedList<>();
         HashSet<String> visitados = new HashSet<>();
-        int nodosExpandidos = 0;
 
         cola.add(raiz);
         visitados.add(raiz.estado);
 
         while (!cola.isEmpty()) {
             Nodo actual = cola.poll();
-            nodosExpandidos++;
+            this.nodosExpandidos++;
+            System.out.println("Procesando - " + actual.estado); // Mensaje
 
             if (actual.estado.equals(objetivo)) {
-                return new ResultadoBusqueda(actual, nodosExpandidos);
+                return actual;
             }
 
             for (String sucesor : actual.obtenerSucesores()) {
                 if (!visitados.contains(sucesor)) {
+                    System.out.println("Agregando a cola - " + sucesor); // Mensaje
                     visitados.add(sucesor);
                     cola.add(new Nodo(sucesor, actual, actual.costo + 1, actual.profundidad + 1));
                 }
             }
         }
-        return new ResultadoBusqueda(null, nodosExpandidos);
+        return null;
     }
 
-    //Búsqueda de costo uniforme
-    public ResultadoBusqueda realizarBusquedaDeCostoUniforme(String objetivo) {
+    //2. Búsqueda de costo uniforme
+    public Nodo realizarBusquedaDeCostoUniforme(String objetivo) {
+        this.nodosExpandidos = 0;
         PriorityQueue<Nodo> colaPrioridad = new PriorityQueue<>(Comparator.comparingInt(n -> n.costo));
         HashSet<String> visitados = new HashSet<>();
-        int nodosExpandidos = 0;
 
         colaPrioridad.add(raiz);
         
         while (!colaPrioridad.isEmpty()) {
             Nodo actual = colaPrioridad.poll();
-            nodosExpandidos++;
+            this.nodosExpandidos++;
+            System.out.println("Procesando - " + actual.estado); // Mensaje
             
             if(visitados.contains(actual.estado)) continue;
             visitados.add(actual.estado);
 
             if (actual.estado.equals(objetivo)) {
-                return new ResultadoBusqueda(actual, nodosExpandidos);
+                return actual;
             }
 
             for (String sucesor : actual.obtenerSucesores()) {
                 if (!visitados.contains(sucesor)) {
+                    System.out.println("Agregando a cola - " + sucesor); // Mensaje
                     int nuevoCosto = actual.costo + 1;
                     colaPrioridad.add(new Nodo(sucesor, actual, nuevoCosto, actual.profundidad + 1));
                 }
             }
         }
-        return new ResultadoBusqueda(null, nodosExpandidos);
+        return null;
     }
 
-    //Búsqueda primero en profundidad
-    public ResultadoBusqueda realizarBusquedaEnProfundidad(String objetivo) {
+    //3. Búsqueda primero en profundidad
+    public Nodo realizarBusquedaEnProfundidad(String objetivo) {
+        this.nodosExpandidos = 0;
         Stack<Nodo> pila = new Stack<>();
         HashSet<String> visitados = new HashSet<>();
-        int nodosExpandidos = 0;
 
         pila.push(raiz);
 
         while (!pila.isEmpty()) {
             Nodo actual = pila.pop();
-            nodosExpandidos++;
+            this.nodosExpandidos++;
+            System.out.println("Procesando - " + actual.estado); // Mensaje
 
             if (visitados.contains(actual.estado)) continue;
             visitados.add(actual.estado);
 
             if (actual.estado.equals(objetivo)) {
-                return new ResultadoBusqueda(actual, nodosExpandidos);
+                return actual;
             }
 
             List<String> sucesores = actual.obtenerSucesores();
-            // Se añaden en orden inverso para explorar de izquierda a derecha
             for (int i = sucesores.size() - 1; i >= 0; i--) {
                 String sucesor = sucesores.get(i);
                 if (!visitados.contains(sucesor)) {
+                    System.out.println("Agregando a pila - " + sucesor); // Mensaje
                     pila.push(new Nodo(sucesor, actual, actual.costo + 1, actual.profundidad + 1));
                 }
             }
         }
-        return new ResultadoBusqueda(null, nodosExpandidos);
+        return null;
     }
 
-    //Búsqueda en profundidad limitada
-    public ResultadoBusqueda realizarBusquedaEnProfundidadLimitada(String objetivo, int limite) {
+    //4. Búsqueda en profundidad limitada
+    public Nodo realizarBusquedaEnProfundidadLimitada(String objetivo, int limite) {
+        this.nodosExpandidos = 0;
         Stack<Nodo> pila = new Stack<>();
         HashSet<String> visitados = new HashSet<>();
-        int nodosExpandidos = 0;
         
         pila.push(raiz);
 
         while (!pila.isEmpty()) {
             Nodo actual = pila.pop();
-            nodosExpandidos++;
+            this.nodosExpandidos++;
+            System.out.println("Procesando - " + actual.estado);
 
             if (visitados.contains(actual.estado)) continue;
             visitados.add(actual.estado);
 
             if (actual.estado.equals(objetivo)) {
-                return new ResultadoBusqueda(actual, nodosExpandidos);
+                return actual;
             }
 
             if (actual.profundidad < limite) {
@@ -135,11 +136,48 @@ public class Arbol {
                 for (int i = sucesores.size() - 1; i >= 0; i--) {
                     String sucesor = sucesores.get(i);
                      if (!visitados.contains(sucesor)) {
+                        System.out.println("Agregando a pila - " + sucesor);
                         pila.push(new Nodo(sucesor, actual, actual.costo + 1, actual.profundidad + 1));
                     }
                 }
             }
         }
-        return new ResultadoBusqueda(null, nodosExpandidos);
+        return null;
+    }
+    
+    //5. Búsqueda AStar(A*) con heurística de diagonales
+    public Nodo realizarBusquedaAEstrella(String objetivo) {
+        this.nodosExpandidos = 0;
+        PriorityQueue<Nodo> colaPrioridad = new PriorityQueue<>(
+            Comparator.comparingInt(n -> n.costo + n.calcularHeuristicaDiagonales(objetivo))
+        );
+        
+        HashSet<String> visitados = new HashSet<>();
+
+        colaPrioridad.add(raiz);
+        
+        while (!colaPrioridad.isEmpty()) {
+            Nodo actual = colaPrioridad.poll();
+            this.nodosExpandidos++;
+            System.out.println("Procesando A* - " + actual.estado + " (Costo + Heuristica: " + (actual.costo + actual.calcularHeuristicaDiagonales(objetivo)) + ")"); // Mensaje
+
+            if(visitados.contains(actual.estado)) {
+                continue;
+            }
+            visitados.add(actual.estado);
+
+            if (actual.estado.equals(objetivo)) {
+                return actual;
+            }
+
+            for (String sucesor : actual.obtenerSucesores()) {
+                if (!visitados.contains(sucesor)) {
+                    System.out.println("Agregando a cola A* - " + sucesor); 
+                    int nuevoCosto = actual.costo + 1;
+                    colaPrioridad.add(new Nodo(sucesor, actual, nuevoCosto, actual.profundidad + 1));
+                }
+            }
+        }
+        return null;
     }
 }
