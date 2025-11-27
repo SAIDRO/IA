@@ -11,7 +11,8 @@ Este proyecto implementa un sistema inteligente capaz de digitalizar texto manus
 
 
 ## Video
-Aqui mismo se adjunto el video con la ejecucion y con pruebas de su funcionamiento.
+Aqui mismo se adjunto el video con la ejecucion y las pruebas de su funcionamiento.
+
 
 > **Nota:** Para mantener el repositorio ligero, el entorno virtual (`.venv`) y los archivos temporales han sido excluidos. Los modelos de IA se descargarán automáticamente en la primera ejecución. Los imports necesarios se encuntran en "requirements.txt".
 
